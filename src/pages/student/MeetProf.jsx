@@ -4,6 +4,7 @@ import { Navbar, Footer } from '../../components';
 import { Avatar,Avatar1,Avatar2 } from '../../assets/images';
 import NavbarConextion from '../../components/NavbarConextion';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 
 const MeetProf = () => {
@@ -25,13 +26,31 @@ const MeetProf = () => {
         },
         
     ]); 
+    const [meetings, setMeetings] = useState([]);
+
+    useEffect(() => {
+      // Function to fetch meetings data using Axios
+      const fetchMeetingsData = async () => {
+        try {
+          // Make a GET request to the API endpoint
+          const response = await axios.get('http://localhost:8080/api/test/gettMeetings');
   
+          // Update the state with the received data
+          setMeetings(response.data);
+          console.log(meetings);
+        } catch (error) {
+          // Handle errors, e.g., log them or show a user-friendly message
+          console.error('Error fetching meetings data:', error);
+        }
+      };
+      fetchMeetingsData();
+  }, []);
   return (
     <main className='relative'>
       <NavbarConextion />
       <section className='padding-x py-10'>
         <section className='max-container flex justify-center flex-wrap gap-9 mt-28'>
-            {Data.map((info, index) => (
+            {meetings.map((info, index) => (
                 <MeetCard key={index} {...info} />
             ))}
         </section>

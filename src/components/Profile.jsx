@@ -5,7 +5,7 @@ import { Avatar } from '../assets/images';
 const Modal = ({ onClose }) => {
     const handleSubmit = (e) => {
       e.preventDefault();
-    
+      
     };
   
     return (
